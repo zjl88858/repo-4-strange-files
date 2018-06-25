@@ -1,0 +1,52 @@
+{
+  "configs": [
+    {
+      "server": "96.8.121.123",
+      "server_port": 443,
+      "password": "yyt1e5e",
+      "method": "salsa20",
+      "plugin": "obfs-local",
+      "plugin_opts": "obfs=tls;obfs-host=www.bing.com",
+      "plugin_args": "",
+      "remarks": "神龟翻滚 西雅图01",
+      "timeout": 5
+    }
+  ],
+  "strategy": null,
+  "index": 0,
+  "global": true,
+  "enabled": true,
+  "shareOverLan": false,
+  "isDefault": false,
+  "localPort": 1080,
+  "pacUrl": null,
+  "useOnlinePac": false,
+  "secureLocalPac": true,
+  "availabilityStatistics": false,
+  "autoCheckUpdate": true,
+  "checkPreRelease": false,
+  "isVerboseLogging": false,
+  "logViewer": {
+    "topMost": false,
+    "wrapText": false,
+    "toolbarShown": false,
+    "Font": "Consolas, 8pt",
+    "BackgroundColor": "Black",
+    "TextColor": "White"
+  },
+  "proxy": {
+    "useProxy": false,
+    "proxyType": 0,
+    "proxyServer": "",
+    "proxyPort": 0,
+    "proxyTimeout": 3
+  },
+  "hotkey": {
+    "SwitchSystemProxy": "",
+    "SwitchSystemProxyMode": "",
+    "SwitchAllowLan": "",
+    "ShowLogs": "",
+    "ServerMoveUp": "",
+    "ServerMoveDown": ""
+  }
+}

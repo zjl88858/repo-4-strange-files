@@ -1,6 +1,19 @@
-#!/usr/bin/env bash
-echo "SystemConf+KCPTun+TinyMapper OneKey Installer"
-echo -e "\033[33m --- BY:Turmi 20190813 --- \033[0m"
-echo -e "\033[36minput 1.\033[0m调教系统配置"
-echo -e "\033[36minput 2.\033[0m安装KCPTun+TinyMapper"
-echo 
+#!/bin/bash
+if cat /etc/issue | grep -q -E -i "debian"; then
+apt install whiptail -y
+elif cat /etc/issue | grep -q -E -i "ubuntu"; then
+apt install whiptail -y
+else
+yum install whiptail -y
+OPTION=$(whiptail --title "兔子最可爱" --menu "Choose your option" 15 60 4 \
+"1" "Grilled Spicy Sausage" \
+"2" "Grilled Halloumi Cheese" \
+"3" "Charcoaled Chicken Wings" \
+"4" "Fried Aubergine"  3>&1 1>&2 2>&3)
+ 
+exitstatus=$?
+if [ $exitstatus = 0 ]; then
+    echo "Your chosen option:" $OPTION
+else
+    echo "You chose Cancel."
+fi

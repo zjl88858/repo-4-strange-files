@@ -50,8 +50,11 @@ if [ $OPTION = 1xTuzi ]; then
 	echo "ulimit -SHn 1000000">>/etc/profile
 	whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --msgbox "Modify complete! Maybe need reboot system." 10 60
 elif [ $OPTION = 2xTuzi ]; then
-	wget https://github.com/xtaci/kcptun/releases/download/v20190809/kcptun-linux-amd64-20190809.tar.gz
-    tar xvzf kcptun-linux-amd64-20190809.tar.gz
+if [ -f "/root/kcptun-linux-amd64-20190809.tar.gz" ];then
+else
+wget https://github.com/xtaci/kcptun/releases/download/v20190809/kcptun-linux-amd64-20190809.tar.gz
+tar xvzf kcptun-linux-amd64-20190809.tar.gz
+fi
 SERVER=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "Server IP?" 10 60  3>&1 1>&2 2>&3)
 PORT=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "Server PORT?" 10 60 8888 3>&1 1>&2 2>&3)
 PW=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "KCPTun Password?" 10 60 sgtunnel-nxy^809-CAY^883 3>&1 1>&2 2>&3)

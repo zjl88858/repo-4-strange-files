@@ -51,6 +51,7 @@ if [ $OPTION = 1xTuzi ]; then
 	whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --msgbox "Modify complete! Maybe need reboot system." 10 60
 elif [ $OPTION = 2xTuzi ]; then
 if [ -f "/root/kcptun-linux-amd64-20190809.tar.gz" ];then
+echo 0
 else
 wget https://github.com/xtaci/kcptun/releases/download/v20190809/kcptun-linux-amd64-20190809.tar.gz
 tar xvzf kcptun-linux-amd64-20190809.tar.gz
@@ -61,7 +62,7 @@ PW=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "KCPTun
 CPORT=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "Client PORT?" 10 60 8888 3>&1 1>&2 2>&3)
 METHOD=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "KCPTun Method (fast,fast2,fast3)?" 10 60 fast3 3>&1 1>&2 2>&3)
 nohup ./client_linux_amd64 -r "$SERVER:$PORT" -l ":$CPORT" -mode $METHOD -sndwnd 1024 -rcvwnd 1024 -autoexpire 900 -sockbuf 16777217 -dscp 46 -key $PW -crypt xor -nocomp -keepalive 15 &
-sed -i 'exit 0' /etc/rc.local
+sed -i '/exit 0/d' /etc/rc.local
 echo "nohup ./client_linux_amd64 -r "$SERVER:$PORT" -l ":$CPORT" -mode $METHOD -sndwnd 1024 -rcvwnd 1024 -autoexpire 900 -sockbuf 16777217 -dscp 46 -key $PW -crypt xor -nocomp -keepalive 15 &" >>/etc/rc.local
 echo "exit 0" >>/etc/rc.local
 fi

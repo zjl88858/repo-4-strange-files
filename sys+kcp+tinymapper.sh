@@ -67,8 +67,8 @@ echo "nohup ./client_linux_amd64 -r "$SERVER:$PORT" -l ":$CPORT" -mode $METHOD -
 echo "exit 0" >>/etc/rc.local
 CLIENTPROCESS=`ps -ef|grep client_linux_amd64|grep -v grep|grep -v restart_rest|wc -l`
 if [ 0 -eq $CLIENTPROCESS ]; then
-echo -e "\033[32m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mKCPTun Launched!"
-else
 echo -e "\033[31m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mKCPTun Launch Failed...Check Ur Port PLS"
+else
+echo -e "\033[32m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mKCPTun Launched!"
 fi
 fi

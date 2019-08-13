@@ -72,4 +72,47 @@ echo "exit 0" >>/etc/rc.local
 else
 echo -e "\033[31m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mKCPTun Launch Failed...Abort Add rc.local"
 fi
+elif [ $OPTION = 3xTuzi ]; then
+if [ -f "/root/kcptun-linux-amd64-20190809.tar.gz" ];then
+echo 0
+else
+wget https://github.com/xtaci/kcptun/releases/download/v20190809/kcptun-linux-amd64-20190809.tar.gz
+tar xvzf kcptun-linux-amd64-20190809.tar.gz
+fi
+TARGET=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "Target PORT?" 10 60 8888 3>&1 1>&2 2>&3)
+LPORT=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "Listen PORT?" 10 60 27017 3>&1 1>&2 2>&3)
+PW=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "KCPTun Password?" 10 60 sgtunnel-nxy^809-CAY^883 3>&1 1>&2 2>&3)
+METHOD=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "KCPTun Method (fast,fast2,fast3)?" 10 60 fast3 3>&1 1>&2 2>&3)
+nohup ./server_linux_amd64 -t "localhost:$TARGET" -l ":$LPORT" -mode $METHOD -sndwnd 2048 -rcvwnd 2048 -sockbuf 16777217 -dscp 46 -key $PW -crypt xor -nocomp -keepalive 15 &
+sleep 2
+PROCESSSER=$(ps -ef|grep server_linux_amd64 |grep -v grep|wc -l)
+if [ $PROCESSSER -ne 0 ]; then
+echo -e "\033[32m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mKCPTun Launched!"
+sed -i '/exit 0/d' /etc/rc.local
+echo "nohup ./server_linux_amd64 -t "localhost:$TARGET" -l ":$LPORT" -mode $METHOD -sndwnd 2048 -rcvwnd 2048 -sockbuf 16777217 -dscp 46 -key $PW -crypt xor -nocomp -keepalive 15 &" >>/etc/rc.local
+echo "exit 0" >>/etc/rc.local
+else
+echo -e "\033[31m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mKCPTun Launch Failed...Abort Add rc.local"
+fi
+elif [ $OPTION = 4xTuzi ]; then
+if [ -f "/root/tinymapper_binaries.tar.gz" ];then
+echo 0
+else
+wget https://github.com/wangyu-/tinyPortMapper/releases/download/20180224.0/tinymapper_binaries.tar.gz
+tar xvzf tinymapper_binaries.tar.gz
+fi
+RIP=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "Remote IP?" 10 60 3>&1 1>&2 2>&3)
+TARGET=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "Target PORT?" 10 60 8888 3>&1 1>&2 2>&3)
+LPORT=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "Listen PORT?" 10 60 8888 3>&1 1>&2 2>&3)
+nohup ./tinymapper_amd64 -l0.0.0.0:$LPORT -r$RIP:$TARGET -u &
+sleep 2
+PROCESSSER=$(ps -ef|tinymapper_amd64 |grep -v grep|wc -l)
+if [ $PROCESSSER -ne 0 ]; then
+echo -e "\033[32m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mTinyMapper Launched!"
+sed -i '/exit 0/d' /etc/rc.local
+echo "nohup ./tinymapper_amd64 -l0.0.0.0:$LPORT -r$RIP:$TARGET -u &" >>/etc/rc.local
+echo "exit 0" >>/etc/rc.local
+else
+echo -e "\033[31m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mTinyMapper Launch Failed...Abort Add rc.local"
+fi
 fi

@@ -63,13 +63,13 @@ CPORT=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "Cli
 METHOD=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "KCPTun Method (fast,fast2,fast3)?" 10 60 fast3 3>&1 1>&2 2>&3)
 nohup ./client_linux_amd64 -r "$SERVER:$PORT" -l ":$CPORT" -mode $METHOD -sndwnd 1024 -rcvwnd 1024 -autoexpire 900 -sockbuf 16777217 -dscp 46 -key $PW -crypt xor -nocomp -keepalive 15 &
 sleep 2
-ps -ef|grep client_linux_amd64 |grep -v grep|wc -l
-if [ $? -ne 0 ]; then
-echo -e "\033[31m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mKCPTun Launch Failed...Abort Add rc.local"
-else
+PROCESSCLI=$(ps -ef|grep client_linux_amd64 |grep -v grep|wc -l)
+if [ $PROCESSCLI -ne 0 ]; then
 echo -e "\033[32m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mKCPTun Launched!"
 sed -i '/exit 0/d' /etc/rc.local
 echo "nohup ./client_linux_amd64 -r "$SERVER:$PORT" -l ":$CPORT" -mode $METHOD -sndwnd 1024 -rcvwnd 1024 -autoexpire 900 -sockbuf 16777217 -dscp 46 -key $PW -crypt xor -nocomp -keepalive 15 &" >>/etc/rc.local
 echo "exit 0" >>/etc/rc.local
+else
+echo -e "\033[31m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mKCPTun Launch Failed...Abort Add rc.local"
 fi
 fi

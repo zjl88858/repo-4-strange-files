@@ -106,8 +106,8 @@ TARGET=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "Ta
 LPORT=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "Listen PORT?" 10 60 8888 3>&1 1>&2 2>&3)
 nohup ./tinymapper_amd64 -l0.0.0.0:$LPORT -r$RIP:$TARGET -u &
 sleep 2
-PROCESSSER=$(ps -ef|grep tinymapper_amd64 |grep -v grep|wc -l)
-if [ $PROCESSSER -ne 0 ]; then
+PROCESSTM=$(ps -ef|grep tinymapper_amd64 |grep -v grep|wc -l)
+if [ $PROCESSTM -ne 0 ]; then
 echo -e "\033[32m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mTinyMapper Launched!"
 sed -i '/exit 0/d' /etc/rc.local
 echo "nohup ./tinymapper_amd64 -l0.0.0.0:$LPORT -r$RIP:$TARGET -u &" >>/etc/rc.local

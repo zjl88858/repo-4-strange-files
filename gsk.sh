@@ -1,7 +1,7 @@
 #!/bin/bash
 #Golink用的节点一键调教脚本，如果你和我们的方案相同，欢迎拿去撸
 #Author:神龟 For:CentOS7+/Ubuntu16.04+/Debian8+(或许其他系统也能用)
-#开源许可:WTFPLv2
+#开源许可:WTFPLv2(参照本Repo下的License文件)
 if cat /etc/issue | grep -q -E -i "debian"; then
 	apt-get install whiptail -y
 elif cat /etc/issue | grep -q -E -i "ubuntu"; then

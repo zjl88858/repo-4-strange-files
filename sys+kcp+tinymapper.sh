@@ -6,11 +6,14 @@ elif cat /etc/issue | grep -q -E -i "ubuntu"; then
 else
 	yum install whiptail -y
 fi
-OPTION=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --menu "How many Tuzi u need? Ctrl+C to exit." 15 60 4 \
+OPTION=$(whiptail --title "[Golink Server Kit] v1.02 BY:TURMI" --menu "How many Tuzi u need? Ctrl+C to exit." 15 60 4 \
 "1xTuzi" "Modify sysctl.conf" \
-"2xTuzi" "Install KCPTun Client and add to rc.local" \
-"3xTuzi" "Install KCPTun Server and add to rc.local" \
-"4xTuzi" "Install TinyMapper and add to rc.local" 3>&1 1>&2 2>&3)
+"2xTuzi" "KCPTun Client(Original)" \
+"3xTuzi" "KCPTun Server(Original)" \
+"4xTuzi" "KCPTun Client(RawTCP)" \
+"5xTuzi" "KCPTun Server(RawTCP)" \
+"6xTuzi" "TinyMapper UDP-Relay" \
+"7xTuzi" "Zabbix Agent" 3>&1 1>&2 2>&3)
 if [ $OPTION = 1xTuzi ]; then
 	sed -i '/fs.file-max/d' /etc/sysctl.conf
 	sed -i '/fs.inotify.max_user_instances/d' /etc/sysctl.conf
@@ -48,7 +51,7 @@ if [ $OPTION = 1xTuzi ]; then
 	echo "*               soft    nofile           1000000
 	*               hard    nofile          1000000">/etc/security/limits.conf
 	echo "ulimit -SHn 1000000">>/etc/profile
-	whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --msgbox "Modify complete! Maybe need reboot system." 10 60
+	whiptail --title "[Golink Server Kit] v1.02 BY:TURMI" --msgbox "Modify complete! Maybe need reboot system." 10 60
 elif [ $OPTION = 2xTuzi ]; then
 if [ -f "/root/kcptun-linux-amd64-20190809.tar.gz" ];then
 echo 0
@@ -56,21 +59,21 @@ else
 wget https://github.com/xtaci/kcptun/releases/download/v20190809/kcptun-linux-amd64-20190809.tar.gz
 tar xvzf kcptun-linux-amd64-20190809.tar.gz
 fi
-SERVER=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "Server IP?" 10 60  3>&1 1>&2 2>&3)
-PORT=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "Server PORT?" 10 60 8888 3>&1 1>&2 2>&3)
-PW=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "KCPTun Password?" 10 60 sgtunnel-nxy^809-CAY^883 3>&1 1>&2 2>&3)
-CPORT=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "Client PORT?" 10 60 8888 3>&1 1>&2 2>&3)
-METHOD=$(whiptail --title "SysConf+KCP+TM OneKey Dialog BY:TURMI" --inputbox "KCPTun Method (fast,fast2,fast3)?" 10 60 fast3 3>&1 1>&2 2>&3)
+SERVER=$(whiptail --title "[Golink Server Kit] v1.02 BY:TURMI" --inputbox "Server IP?" 10 60  3>&1 1>&2 2>&3)
+PORT=$(whiptail --title "[Golink Server Kit] v1.02 BY:TURMI" --inputbox "Server PORT?" 10 60 8888 3>&1 1>&2 2>&3)
+PW=$(whiptail --title "[Golink Server Kit] v1.02 BY:TURMI" --inputbox "KCPTun Password?" 10 60 sgtunnel-nxy^809-CAY^883 3>&1 1>&2 2>&3)
+CPORT=$(whiptail --title "[Golink Server Kit] v1.02 BY:TURMI" --inputbox "Client PORT?" 10 60 8888 3>&1 1>&2 2>&3)
+METHOD=$(whiptail --title "[Golink Server Kit] v1.02 BY:TURMI" --inputbox "KCPTun Method (fast,fast2,fast3)?" 10 60 fast3 3>&1 1>&2 2>&3)
 nohup ./client_linux_amd64 -r "$SERVER:$PORT" -l ":$CPORT" -mode $METHOD -sndwnd 1024 -rcvwnd 1024 -autoexpire 900 -sockbuf 16777217 -dscp 46 -key $PW -crypt xor -nocomp -keepalive 15 &
 sleep 2
 PROCESSCLI=$(ps -ef|grep client_linux_amd64 |grep -v grep|wc -l)
 if [ $PROCESSCLI -ne 0 ]; then
-echo -e "\033[32m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mKCPTun Launched!"
+echo -e "\033[32m[Golink Server Kit]\033[0mKCPTun Launched!"
 sed -i '/exit 0/d' /etc/rc.local
 echo "nohup ./client_linux_amd64 -r "$SERVER:$PORT" -l ":$CPORT" -mode $METHOD -sndwnd 1024 -rcvwnd 1024 -autoexpire 900 -sockbuf 16777217 -dscp 46 -key $PW -crypt xor -nocomp -keepalive 15 &" >>/etc/rc.local
 echo "exit 0" >>/etc/rc.local
 else
-echo -e "\033[31m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mKCPTun Launch Failed...Abort Add rc.local"
+echo -e "\033[31m[Golink Server Kit]\033[0mKCPTun Launch Failed...Abort Add rc.local"
 fi
 elif [ $OPTION = 3xTuzi ]; then
 if [ -f "/root/kcptun-linux-amd64-20190809.tar.gz" ];then
@@ -87,14 +90,14 @@ nohup ./server_linux_amd64 -t "localhost:$TARGET" -l ":$LPORT" -mode $METHOD -sn
 sleep 2
 PROCESSSER=$(ps -ef|grep server_linux_amd64 |grep -v grep|wc -l)
 if [ $PROCESSSER -ne 0 ]; then
-echo -e "\033[32m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mKCPTun Launched!"
+echo -e "\033[Golink Server Kit]\033[0mKCPTun Launched!"
 sed -i '/exit 0/d' /etc/rc.local
 echo "nohup ./server_linux_amd64 -t "localhost:$TARGET" -l ":$LPORT" -mode $METHOD -sndwnd 2048 -rcvwnd 2048 -sockbuf 16777217 -dscp 46 -key $PW -crypt xor -nocomp -keepalive 15 &" >>/etc/rc.local
 echo "exit 0" >>/etc/rc.local
 else
-echo -e "\033[31m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mKCPTun Launch Failed...Abort Add rc.local"
+echo -e "\033[31m[Golink Server Kit]\033[0mKCPTun Launch Failed...Abort Add rc.local"
 fi
-elif [ $OPTION = 4xTuzi ]; then
+elif [ $OPTION = 6xTuzi ]; then
 if [ -f "/root/tinymapper_binaries.tar.gz" ];then
 echo 0
 else
@@ -108,11 +111,11 @@ nohup ./tinymapper_amd64 -l0.0.0.0:$LPORT -r$RIP:$TARGET -u &
 sleep 2
 PROCESSTM=$(ps -ef|grep tinymapper_amd64 |grep -v grep|wc -l)
 if [ $PROCESSTM -ne 0 ]; then
-echo -e "\033[32m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mTinyMapper Launched!"
+echo -e "\033[32m[Golink Server Kit]\033[0mTinyMapper Launched!"
 sed -i '/exit 0/d' /etc/rc.local
 echo "nohup ./tinymapper_amd64 -l0.0.0.0:$LPORT -r$RIP:$TARGET -u &" >>/etc/rc.local
 echo "exit 0" >>/etc/rc.local
 else
-echo -e "\033[31m[SysConf+KCP+TM OneKey Dialog BY:TURMI]\033[0mTinyMapper Launch Failed...Abort Add rc.local"
+echo -e "\033[31m[Golink Server Kit]\033[0mTinyMapper Launch Failed...Abort Add rc.local"
 fi
 fi

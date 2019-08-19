@@ -7,7 +7,7 @@ else
 	yum install whiptail -y
 fi
 OPTION=$(whiptail --title "[Golink Server Kit] v1.02 BY:TURMI" --menu "How many Tuzi u need? Ctrl+C to exit." 15 60 4 \
-"1xTuzi" "Modify sysctl.conf" \
+"1xTuzi" "Optimization Sysctl" \
 "2xTuzi" "KCPTun Client(Original)" \
 "3xTuzi" "KCPTun Server(Original)" \
 "4xTuzi" "KCPTun Client(RawTCP)" \

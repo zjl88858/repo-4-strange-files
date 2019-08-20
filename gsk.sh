@@ -121,4 +121,27 @@ echo "exit 0" >>/etc/rc.local
 else
 echo -e "\033[31m[Golink Server Kit]\033[0mTinyMapper Launch Failed...Abort Add rc.local"
 fi
+elif [ $OPTION = 4xTuzi ]; then
+if [ -f "/root/kcptun-linux-amd64-20190809.tar.gz" ];then
+echo 0
+else
+wget https://github.com/xtaci/kcptun/releases/download/v20190809/kcptun-linux-amd64-20190809.tar.gz
+tar xvzf kcptun-linux-amd64-20190809.tar.gz
+fi
+SERVER=$(whiptail --title "[Golink Server Kit] v1.02 BY:TURMI" --inputbox "Server IP?" 10 60  3>&1 1>&2 2>&3)
+PORT=$(whiptail --title "[Golink Server Kit] v1.02 BY:TURMI" --inputbox "Server PORT?" 10 60 8888 3>&1 1>&2 2>&3)
+PW=$(whiptail --title "[Golink Server Kit] v1.02 BY:TURMI" --inputbox "KCPTun Password?" 10 60 sgtunnel-nxy^809-CAY^883 3>&1 1>&2 2>&3)
+CPORT=$(whiptail --title "[Golink Server Kit] v1.02 BY:TURMI" --inputbox "Client PORT?" 10 60 8888 3>&1 1>&2 2>&3)
+METHOD=$(whiptail --title "[Golink Server Kit] v1.02 BY:TURMI" --inputbox "KCPTun Method (fast,fast2,fast3)?" 10 60 fast3 3>&1 1>&2 2>&3)
+nohup ./client_linux_amd64 -r "$SERVER:$PORT" -l ":$CPORT" -mode $METHOD -sndwnd 1024 -rcvwnd 1024 -autoexpire 900 -sockbuf 16777217 -dscp 46 -key $PW -crypt xor -nocomp -keepalive 15 -tcp &
+sleep 2
+PROCESSCLI=$(ps -ef|grep client_linux_amd64 |grep -v grep|wc -l)
+if [ $PROCESSCLI -ne 0 ]; then
+echo -e "\033[32m[Golink Server Kit]\033[0mKCPTun Launched!"
+sed -i '/exit 0/d' /etc/rc.local
+echo "nohup ./client_linux_amd64 -r "$SERVER:$PORT" -l ":$CPORT" -mode $METHOD -sndwnd 1024 -rcvwnd 1024 -autoexpire 900 -sockbuf 16777217 -dscp 46 -key $PW -crypt xor -nocomp -keepalive 15 -tcp &" >>/etc/rc.local
+echo "exit 0" >>/etc/rc.local
+else
+echo -e "\033[31m[Golink Server Kit]\033[0mKCPTun Launch Failed...Abort Add rc.local"
+fi
 fi

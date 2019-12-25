@@ -12,7 +12,7 @@
                     seconds = Math.floor(maxtime % 60);
                     msg = "稍候 " + seconds + " 秒";
                     
-                    if (maxtime == 0){msg = "未通过检测...";}
+                    if (maxtime == 0){msg = "未通过检测";}
 					document.all["timer"].innerHTML = msg;
                         --maxtime;
                 } else{
@@ -135,7 +135,7 @@ html body h4 {
   viewBox="0 0 38 38" 
   preserveAspectRatio="xMinYMin meet"
   >
-  <text x="14" y="21" font-family="Monaco" font-size="2px" style="letter-spacing:0.6" fill="grey" id="timer">LOADING...
+  <text x="14" y="21" font-family="Monaco" font-size="2px" style="letter-spacing:0.6" fill="grey" id="timer">LOADING
      <animate 
        attributeName="opacity"
        values="0;1;0" dur="1.8s"

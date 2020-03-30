@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>Spooky Shield WAF</title>
+<title>Dwgcloud DDoS Protection</title>
 <style type="text/css">
     html, body {width: 100%; height: 100%; margin: 0; padding: 0;}
     body {font-family: Helvetica, Arial, sans-serif; font-size: 100%;}
@@ -25,9 +25,9 @@
                 if (maxtime >= 0) {
                     minutes = Math.floor(maxtime / 60);
                     seconds = Math.floor(maxtime % 60);
-                    msg = "Spooky WAF浏览器检查，请稍候 " + seconds + " 秒";
+                    msg = "Dwgcloud DDoS Protection Verifying... " + seconds + " Sec";
                     
-                    if (maxtime == 0){msg = "Spooky WAF浏览器检查完毕，跳转中...";}
+                    if (maxtime == 0){msg = "Dwgcloud DDoS Protection Verify Complete";}
 					document.all["timer"].innerHTML = msg;
                         --maxtime;
                 } else{
@@ -60,13 +60,13 @@
 
 </div>
 <div class="attribution">
-DDoS Protection By 百度云加速国际版
+DDoS Protection By Cloudflare
 <br />
 Client IP ::CLIENT_IP::
 <br />
 Ray ID ::RAY_ID::
 <br />
-Designer 神龟Turmi
+Designer Turmi
 </div>
 </td>
 </tr>

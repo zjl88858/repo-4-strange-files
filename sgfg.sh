@@ -93,10 +93,10 @@ sudo dpkg -i linux-image-*xanmod*.deb linux-headers-*xanmod*.deb
 echo "STEP5:安装Xanmod内核 Success."
 sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
-echo "net.core.default_qdisc=fq-pie" >> /etc/sysctl.conf
+echo "net.core.default_qdisc=cake" >> /etc/sysctl.conf
 echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
 sysctl -p
-echo "STEP6:开启BBR和FQ-PIE队列算法 Success."
+echo "STEP6:开启BBR和CAKE队列算法 Success."
 wget https://raw.githubusercontent.com/CokeMine/ServerStatus-Hotaru/master/status.sh
 wget https://github.com/ginuerzh/gost/releases/download/v2.11.1/gost-linux-amd64-2.11.1.gz
 gunzip gost-linux-amd64-2.11.1.gz

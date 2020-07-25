@@ -88,7 +88,13 @@ echo "ulimit -SHn 1000000">>/etc/profile
 echo "STEP4:配置Sysctl Success."
 echo 'deb http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-kernel.list && wget -qO - https://dl.xanmod.org/gpg.key | sudo apt-key add -
 apt update
-apt install linux-xanmod-lts
+apt install linux-xanmod
 echo "STEP5:安装Xanmod内核 Success."
 sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
+echo "net.core.default_qdisc=fq-pie" >> /etc/sysctl.conf
+echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+sysctl -p
+echo "STEP6:开启BBR和FQ-PIE队列算法 Success."
+echo "确认无误后,请重启."
+echo "重启后使用密钥连接SSH,并使用 cat /proc/sys/net/core/default_qdisc 查看队列算法是否正确,使用 uname -a 查看内核是否正确."

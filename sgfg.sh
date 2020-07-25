@@ -87,9 +87,9 @@ cat>/etc/security/limits.conf<<EOF
 EOF
 echo "ulimit -SHn 1000000">>/etc/profile
 echo "STEP4:配置Sysctl Success."
-echo 'deb http://deb.xanmod.org releases main' | sudo tee /etc/apt/sources.list.d/xanmod-kernel.list && wget -qO - https://dl.xanmod.org/gpg.key | sudo apt-key add -
-apt update
-apt install linux-xanmod
+wget -O linux-image-5.7.10-xanmod1_5.7.10-xanmod1.ed358d3_amd64.deb https://sourceforge.net/projects/xanmod/files/releases/stable/5.7.10-xanmod1/linux-image-5.7.10-xanmod1_5.7.10-xanmod1-0%7Egit20200722.ed358d3_amd64.deb/download
+wget -O linux-headers-5.7.10-xanmod1_5.7.10-xanmod1.ed358d3_amd64.deb https://sourceforge.net/projects/xanmod/files/releases/stable/5.7.10-xanmod1/linux-headers-5.7.10-xanmod1_5.7.10-xanmod1-0%7Egit20200722.ed358d3_amd64.deb/download
+sudo dpkg -i linux-image-*xanmod*.deb linux-headers-*xanmod*.deb
 echo "STEP5:安装Xanmod内核 Success."
 sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
 sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf

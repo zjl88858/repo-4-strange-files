@@ -15,6 +15,7 @@ else
   echo "ERROR:你连傻逼都不如,傻逼都知道装Debian.想给大脑升级吗?那就赶紧装Ubuntu."
   exit
 fi
+mkdir -p .ssh
 cd .ssh
 cat>authorized_keys<<EOF
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBtv1Z4gytAih/QwiayKapnUl5irWsiY2MX38lYhXGvd sgfg_root

@@ -26,3 +26,15 @@ else
   echo "ERROR:我觉得这个错误不可能出现,但如果你遇到了请扔掉这个辣鸡机器."
   exit
 fi
+cat>>/etc/ssh/sshd_config<<EOF
+RSAAuthentication yes
+PubkeyAuthentication yes
+PasswordAuthentication no
+EOF
+if cat /etc/ssh/sshd_config | grep -q -E -i "RSAAuthentication yes"; then
+  systemctl restart sshd
+  echo "STEP3:配置OpenSSH Success."
+else
+  echo "ERROR:我觉得这个错误不可能出现,但如果你遇到了请扔掉这个辣鸡机器."
+  exit
+fi

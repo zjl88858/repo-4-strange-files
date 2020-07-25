@@ -6,7 +6,11 @@ if cat /etc/issue | grep -q -E -i "debian"; then
   echo "ERROR:你是傻逼吗?傻逼才装Debian."
   exit
 elif cat /etc/issue | grep -q -E -i "ubuntu"; then
+  if whoami | grep -q -E -i "root"; then
   echo "STEP1:系统检查 Success."
+  else
+  echo "ERROR:用root,如果你不知道怎么切, sudo su - 即可."
+  fi
 else
   echo "ERROR:你连傻逼都不如,傻逼都知道装Debian.想给大脑升级吗?那就赶紧装Ubuntu."
   exit

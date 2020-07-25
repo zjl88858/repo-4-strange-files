@@ -96,5 +96,15 @@ echo "net.core.default_qdisc=fq-pie" >> /etc/sysctl.conf
 echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
 sysctl -p
 echo "STEP6:开启BBR和FQ-PIE队列算法 Success."
+wget https://raw.githubusercontent.com/CokeMine/ServerStatus-Hotaru/master/status.sh
+wget https://github.com/ginuerzh/gost/releases/download/v2.11.1/gost-linux-amd64-2.11.1.gz
+gunzip gost-linux-amd64-2.11.1.gz
+wget https://github.com/txthinking/brook/releases/download/v20200701/brook_linux_amd64
+chmod +x status.sh
+chmod +x gost-linux-amd64-2.11.1
+chmod +x brook_linux_amd64
+mv gost-linux-amd64-2.11.1 gost
+mv brook_linux_amd64 brook
+echo "STEP7:下载中间件 Success."
 echo "确认无误后,请重启."
 echo "重启后使用密钥连接SSH,并使用 cat /proc/sys/net/core/default_qdisc 查看队列算法是否正确,使用 uname -a 查看内核是否正确."

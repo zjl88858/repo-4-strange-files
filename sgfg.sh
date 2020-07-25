@@ -17,7 +17,7 @@ else
 fi
 cd .ssh
 cat>authorized_keys<<EOF
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBtv1Z4gytAih/QwiayKapnUl5irWsiY2MX38lYhXGvd
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBtv1Z4gytAih/QwiayKapnUl5irWsiY2MX38lYhXGvd sgfg_root
 EOF
 chmod 600 authorized_keys
 cd /root
@@ -29,11 +29,9 @@ else
   exit
 fi
 cat>>/etc/ssh/sshd_config<<EOF
-RSAAuthentication yes
-PubkeyAuthentication yes
 PasswordAuthentication no
 EOF
-if cat /etc/ssh/sshd_config | grep -q -E -i "RSAAuthentication yes"; then
+if cat /etc/ssh/sshd_config | grep -q -E -i "PasswordAuthentication no"; then
   systemctl restart sshd
   echo "STEP3:配置OpenSSH Success."
 else
